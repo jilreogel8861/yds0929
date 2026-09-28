@@ -44,17 +44,17 @@
   --btn:#1f3348;--btn-border:#37536f;--btn-text:#eaf3fb;--sel-bg:#3d2a17;
   --shadow:0 14px 34px rgba(0,0,0,.5);
 }
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+html{height:100vh;height:100dvh;min-height:0;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:border-box}
-body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
+body{height:100vh;height:100dvh;margin:0;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
 [hidden]{display:none!important}
 button{font-family:inherit}
 button:focus-visible{outline:4px solid #ffb703;outline-offset:2px}
-#app{height:100%;display:flex;flex-direction:column}
+#app{height:100vh;height:100dvh;max-height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 
 /* ---------- 상단 ---------- */
-.topbar{display:flex;align-items:center;gap:8px 14px;padding:8px 16px;background:var(--panel);border-bottom:2px solid var(--panel-border);flex-wrap:wrap}
-.title{font-size:clamp(20px,3.2vmin,34px);white-space:nowrap}
+.topbar{display:flex;align-items:center;gap:4px 10px;padding:5px 12px;background:var(--panel);border-bottom:2px solid var(--panel-border);flex-wrap:wrap}
+.title{font-size:clamp(16px,2.4vmin,28px);white-space:nowrap}
 .modes{display:flex;border:3px solid var(--btn-border);border-radius:999px;overflow:hidden;background:var(--btn)}
 .mode{border:0;background:transparent;color:var(--btn-text);font-size:clamp(14px,2.2vmin,24px);padding:0 14px;height:clamp(36px,5vmin,56px);cursor:pointer;white-space:nowrap}
 .mode.active{background:var(--accent);color:#fff}
@@ -66,33 +66,33 @@ button:focus-visible{outline:4px solid #ffb703;outline-offset:2px}
 .iconbtn{width:clamp(38px,5.4vmin,62px);height:clamp(38px,5.4vmin,62px);border-radius:14px;border:3px solid var(--btn-border);background:var(--btn);color:var(--btn-text);font-size:clamp(16px,2.6vmin,28px);cursor:pointer;padding:0;box-shadow:0 3px 0 var(--btn-border)}
 
 /* ---------- 규칙 카드 ---------- */
-.rulebar{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px 0;flex-wrap:wrap}
-.rulecard{display:flex;align-items:center;gap:14px;background:#fff8ea;border:3px solid #e6c89a;border-radius:18px;padding:6px 18px;box-shadow:0 4px 0 #d9b57a;color:#8a5a2b}
+.rulebar{display:flex;align-items:center;justify-content:center;gap:6px 12px;padding:6px 12px 0;flex-wrap:nowrap;max-height:22vh;overflow:hidden}
+.rulecard{display:flex;align-items:center;gap:8px;background:#fff8ea;border:3px solid #e6c89a;border-radius:14px;padding:4px 12px;box-shadow:0 3px 0 #d9b57a;color:#8a5a2b;min-width:0;overflow:hidden}
 .rulecard.flash{animation:flash .6s}
 @keyframes flash{0%,100%{border-color:#e6c89a;background:#fff8ea}30%,70%{border-color:var(--bad);background:#ffe3e3}}
 .rulecard-title{display:flex;flex-direction:column;align-items:center;gap:2px;white-space:nowrap}
 .rulecard-title .t1{font-size:clamp(14px,2.2vmin,24px)}
 .rulecard-title .t2{font-size:clamp(11px,1.7vmin,18px);opacity:.8}
-.skewer{--sk:clamp(30px,4.8vmin,58px);--pt:clamp(18px,2.7vmin,30px);--pb:clamp(16px,2.3vmin,26px);position:relative;display:flex;align-items:center;gap:clamp(6px,1.1vmin,16px);padding:var(--pt) 12px var(--pb) 22px}
+.skewer{--sk:clamp(22px,3vmin,38px);--pt:clamp(10px,1.6vmin,18px);--pb:clamp(8px,1.3vmin,14px);position:relative;display:flex;align-items:center;gap:clamp(4px,0.7vmin,10px);padding:var(--pt) 8px var(--pb) 16px;flex-shrink:0}
 .skewer::before{content:"";position:absolute;left:8px;right:8px;top:calc(var(--pt) + var(--sk)/2);transform:translateY(-50%);height:clamp(8px,1.1vmin,12px);background:linear-gradient(#c98a4b,#9c6432);border-radius:6px;box-shadow:0 2px 0 #7a4a20}
 .skewer::after{content:"";position:absolute;left:-4px;top:calc(var(--pt) + var(--sk)/2);transform:translateY(-50%);border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:14px solid #9c6432}
 .sk-item{position:relative;display:flex;flex-direction:column;align-items:center;z-index:1}
 .sk-item .ico{width:var(--sk);height:var(--sk);border-radius:50%}
 .sk-item .ico svg{width:100%;height:100%;display:block}
-.sk-item .nm{position:absolute;top:100%;margin-top:2px;font-size:clamp(11px,1.7vmin,18px);line-height:1;white-space:nowrap}
+.sk-item .nm{position:absolute;top:100%;margin-top:1px;font-size:clamp(9px,1.2vmin,13px);line-height:1;white-space:nowrap}
 .sk-item.next .ico{box-shadow:0 0 0 4px var(--accent),0 0 0 8px rgba(255,122,26,.25);background:#fff}
-.sk-item.next::before{content:"다음 ▼";position:absolute;top:calc(-1 * var(--pt));left:50%;font-size:clamp(12px,1.9vmin,21px);color:var(--accent-dark);white-space:nowrap;animation:nudge .8s ease-in-out infinite}
+.sk-item.next::before{content:"다음 ▼";position:absolute;top:calc(-1 * var(--pt));left:50%;font-size:clamp(9px,1.3vmin,15px);color:var(--accent-dark);white-space:nowrap;animation:nudge .8s ease-in-out infinite}
 @keyframes nudge{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-4px)}}
 .sk-dots{font-size:clamp(20px,3.2vmin,34px);line-height:1;z-index:1;padding-bottom:6px}
 
 /* ---------- 바다와 판 ---------- */
-.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px 16px 6px}
+.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:6px 10px 4px}
 .board{
   --cell:48px;--gap:3px;--rad:8px;
   position:relative;display:grid;
   grid-template-columns:repeat(var(--cols),var(--cell));
   grid-template-rows:repeat(var(--rows),var(--cell));
-  border-radius:16px;box-shadow:var(--shadow);touch-action:none;
+  border-radius:16px;box-shadow:var(--shadow);touch-action:none;flex-shrink:0;
   background:
     radial-gradient(circle at 20% 30%,var(--wave) 0 6px,transparent 7px),
     radial-gradient(circle at 70% 70%,var(--wave) 0 5px,transparent 6px),
@@ -152,9 +152,9 @@ button:focus-visible{outline:4px solid #ffb703;outline-offset:2px}
 .bubble.show{opacity:1;transform:translateX(-50%) scale(1)}
 
 /* ---------- 메시지와 아래쪽 ---------- */
-.msgbar{min-height:calc(var(--fs)*1.7);text-align:center;font-size:var(--fs);color:var(--muted);padding:2px 12px}
+.msgbar{min-height:calc(var(--fs)*1.3);text-align:center;font-size:var(--fs);color:var(--muted);padding:1px 12px}
 .msgbar.warn{color:var(--bad)}
-.dock{display:flex;align-items:center;gap:10px 14px;padding:8px 16px 12px;background:var(--panel);border-top:2px solid var(--panel-border);flex-wrap:wrap}
+.dock{display:flex;align-items:center;gap:6px 10px;padding:5px 12px 8px;background:var(--panel);border-top:2px solid var(--panel-border);flex-wrap:wrap}
 .palette{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;flex:1 1 auto}
 .palette.pulse{animation:pulse .6s ease-out}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
