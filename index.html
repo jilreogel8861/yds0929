@@ -364,6 +364,7 @@
       <div class="progress">만난 사람 <span class="dots" id="dots"></span> <span><span id="cnt">0</span> / 5</span></div>
       <button class="small primary" id="sumBtn">정리하기</button>
       <button class="small primary" id="missionBtn">미션 카드</button>
+      <button class="small" id="voiceBtn">🔊 소리 켬</button>
       <button class="small" id="reset">처음으로</button>
     </div>
   </header>
@@ -708,6 +709,22 @@ const GLUE = [
 ];
 const glue = t => GLUE.reduce((s, [re, rep]) => s.replace(re, rep), t);
 
+/* =========================================================
+   시장님 목소리 (audio/번호.mp3) — 시장님이 말하는 대사가 나올 때 재생
+   ========================================================= */
+const VOICE = {"새롭게태어난영동시의여러장소를소개합니다!": "audio/01.mp3", "화면만누르면주문끝!줄서지않는키오스크카페,": "audio/02.mp3", "누구나쓸수있는깨끗한공중화장실,": "audio/03.mp3", "차를편하게세우는넓은주차장,": "audio/04.mp3", "멋진그림이가득한미술관,": "audio/05.mp3", "어디든데려다주는시내버스까지!": "audio/06.mp3", "시민을위한시설이이렇게많으니,누구나만족하며살수있겠지요?": "audio/07.mp3", "자,그럼우리동네를함께둘러볼까요?": "audio/08.mp3", "장소를눌러서우리동네자랑거리를구경해보세요!": "audio/09.mp3", "내가자랑하던곳에이런불편이있었다니!다른곳도가볼까요?": "audio/10.mp3", "혹시다른곳에도불편을겪는사람이있지않을까요?": "audio/11.mp3", "내가미처몰랐던우리동네의모습이또있을지도몰라요.": "audio/12.mp3", "이제한곳남았어요.마지막장소도살펴볼까요?": "audio/13.mp3", "모두만나고나니우리동네가다르게보여요.‘정리하기’를눌러보세요.": "audio/14.mp3", "여기는우리동네자랑,키오스크카페예요!화면만누르면주문끝!": "audio/15.mp3", "여기는키오스크카페예요!최신기계도입으로모두가빠르고편리하게주문이가능하답니다~!": "audio/16.mp3", "앗!할머니께는화면이너무높고글씨도작았군요!": "audio/17.mp3", "빠르고편리하다고만생각했는데…할머니께는불편한곳이었어요.": "audio/18.mp3", "여기는버스정류장이에요.버스만타면어디든금방갈수있어요!": "audio/19.mp3", "여기는버스정류장이에요.버스는누구나탈수있으니까…여기는괜찮겠지요?": "audio/20.mp3", "저런!계단이높아서버스에오를수가없군요!": "audio/21.mp3", "버스만있으면어디든갈수있다고생각했는데…다리가불편하면타기조차어려웠어요.": "audio/22.mp3", "여기는깨끗하고넓은공중화장실이에요.누구나편하게쓸수있지요!": "audio/23.mp3", "여기는깨끗한공중화장실이에요.여기는누구나편하게쓸수있겠지요?": "audio/24.mp3", "이런!아기를안고있으면화장실을쓸수가없겠네요!": "audio/25.mp3", "깨끗하면누구나편할줄알았는데…아기와함께온사람은생각하지못했어요.": "audio/26.mp3", "여기는차를편하게세울수있는넓은주차장이에요!": "audio/27.mp3", "여기는넓은주차장이에요.이렇게넓으니까…여기는괜찮겠지요?": "audio/28.mp3", "비가오는날에는주차장을이용하는게불편하겠군요!": "audio/29.mp3", "주차장만넓으면충분한줄알았는데…손을쓰기어려운순간도있었어요.": "audio/30.mp3", "여기는멋진그림이가득한미술관이에요.작품설명도친절하게붙어있지요!": "audio/31.mp3", "여기는미술관이에요.작품설명도붙어있으니까…여기는괜찮겠지요?": "audio/32.mp3", "아이코!한국어를모르면설명을읽을수가없겠네요!": "audio/33.mp3", "설명이친절하다고생각했는데…한국어를읽지못하는사람에게는소용이없었어요.": "audio/34.mp3", "우리동네가누구에게나편하고살기좋은곳이라고생각했어요.": "audio/35.mp3", "그런데직접둘러보니,내가자랑하던곳에이런불편이숨어있었어요.": "audio/36.mp3", "모두가이용하기편한장소로바꾸어야해요.": "audio/37.mp3", "우리동네뿐만아니라,우리학교는어떨까요?": "audio/38.mp3", "저는영동시의다른장소들을고치러가야할것같은데…": "audio/39.mp3", "학교에도불편한곳이있을것같아요!": "audio/40.mp3", "여러분이바쁜저를대신해서학교의불편한곳을찾아줄수있을까요?": "audio/41.mp3", "이것이오늘의미션이에요!": "audio/42.mp3", "숨은불편은이렇게찾아요.": "audio/43.mp3", "이런사람들을떠올리며학교를살펴보세요.숨은불편이더잘보일거예요.": "audio/44.mp3", "출발하기전에약속해요!": "audio/45.mp3", "숨은불편을찾아시장에게꼭알려주세요.여러분을믿어요!": "audio/46.mp3"};
+const vnorm = t => t.replace(/[\s\u00a0]+/g, '');
+let voiceOn = true, vAudio = null;
+try { voiceOn = localStorage.getItem('yd-voice') !== 'off'; } catch (e) {}
+function stopVoice(){ if (vAudio) { try { vAudio.pause(); } catch (e) {} vAudio = null; } }
+function speak(text){
+  stopVoice();
+  const f = VOICE[vnorm(text || '')];
+  if (!voiceOn || !f) return;
+  try { vAudio = new Audio(f); const p = vAudio.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+}
+function paintVoiceBtn(){ const b = $('voiceBtn'); if (b) { b.textContent = voiceOn ? '🔊 소리 켬' : '🔇 소리 끔'; b.setAttribute('aria-pressed', voiceOn); } }
+
 const PINS = {kiosk:[672,480,[480,215,260,310]], toilet:[1113,473,[905,240,245,300]], trunk:[604,843,[345,565,370,340]], museum:[1128,850,[880,620,320,290]], bus:[1475,822,[1215,600,290,280]]};
 const pinShape = (x,y) => `<circle cx="${x}" cy="${y}" r="28" fill="#fff"/><path d="M${x} ${y+24} C${x-8} ${y+12} ${x-19} ${y+2} ${x-19} ${y-8} A19 19 0 1 1 ${x+19} ${y-8} C${x+19} ${y+2} ${x+8} ${y+12} ${x} ${y+24}Z" fill="#F7832F" stroke="#fff" stroke-width="4"/><circle cx="${x}" cy="${y-8}" r="7" fill="#fff"/>`;
 
@@ -862,6 +879,7 @@ function setPort(face, bg){
 }
 function showLine(l){
   const v = shown = view(l, idx);
+  if (v.cls === 'mayor') speak(v.text); else stopVoice();
   v.text = glue(v.text); v.tr = glue(v.tr);
   const w = $('sWho'); w.textContent = v.who; w.className = 'who ' + v.cls;
   if (l.t === 'find') $('fMsg').textContent = glue(l.text);
@@ -906,6 +924,7 @@ $('dots').innerHTML = ORDER.map(id => `<i data-d="${id}"></i>`).join('');
    ========================================================= */
 let tourIdx = 0, touring = false;
 function setMapMayor(m, text){
+  speak(text);
   $('mapMayorImg').setAttribute('href', BUST[m]);
   const t = $('mbTxt'); t.textContent = glue(text); t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop');
 }
@@ -945,7 +964,7 @@ function openScene(id){
   $('cnt').textContent = done.size;
 }
 function closeScene(){
-  clearInterval(typer); typer = null; current = null; $('scene').classList.remove('open');
+  clearInterval(typer); typer = null; current = null; stopVoice(); $('scene').classList.remove('open');
   updateMapMayor();
   if (done.size === 5) { $('sumBtn').classList.add('show'); if (!finShown) { finShown = true; openFin(); } }
 }
@@ -958,12 +977,13 @@ function renderFin(){
   const s = FIN[finIdx];
   $('finMayor').src = MAYOR[s.m];
   $('finMain').innerHTML = glue(s.html());
+  { const e = $('finMain').querySelector('.fin-say'); speak(e ? e.textContent : ''); }
   $('fSteps').innerHTML = FIN.map((_,i)=>`<i class="${i<=finIdx?'on':''}"></i>`).join('');
   $('fPrev').disabled = finIdx === 0;
   $('fNext').textContent = finIdx < FIN.length - 1 ? '다음 ▶' : '함께 찾아봐요!';
 }
 function openFin(){ finIdx = 0; renderFin(); $('finish').classList.add('open'); }
-function closeFin(){ $('finish').classList.remove('open'); }
+function closeFin(){ stopVoice(); $('finish').classList.remove('open'); }
 function finNext(){ if (finIdx < FIN.length - 1) { finIdx++; renderFin(); } else openMission(); }
 function finPrev(){ if (finIdx > 0) { finIdx--; renderFin(); } }
 
@@ -1034,6 +1054,7 @@ function confetti(){
 }
 function renderMission(){
   const s = MISSION[mIdx];
+  speak(s.say);
   const box = !!s.box;
   $('mSub').hidden = !box; $('mHost').hidden = box;
   if (box) {
@@ -1053,7 +1074,7 @@ function renderMission(){
   const env = $('envBtn'); if (env) env.onclick = missionNext;
 }
 function openMission(){ closeFin(); mIdx = 0; renderMission(); $('mission').hidden = false; $('missionBtn').classList.add('show'); }
-function closeMission(){ $('mission').hidden = true; $('confetti').innerHTML = ''; }
+function closeMission(){ stopVoice(); $('mission').hidden = true; $('confetti').innerHTML = ''; }
 function missionNext(){ if (mIdx < MISSION.length - 1) { mIdx++; renderMission(); } }
 function missionPrev(){ if (mIdx > 0) { mIdx--; renderMission(); } }
 
@@ -1068,6 +1089,8 @@ $('finClose').onclick = closeFin;
 $('fNext').onclick = finNext;
 $('fPrev').onclick = finPrev;
 $('missionBtn').onclick = openMission;
+$('voiceBtn').onclick = () => { voiceOn = !voiceOn; try { localStorage.setItem('yd-voice', voiceOn ? 'on' : 'off'); } catch (e) {} if (!voiceOn) stopVoice(); paintVoiceBtn(); };
+paintVoiceBtn();
 $('mBack').onclick = closeMission;
 $('mNext').onclick = missionNext;
 $('mPrev').onclick = missionPrev;
@@ -1075,7 +1098,7 @@ $('reset').onclick = () => {
   done.clear(); finShown = false; $('cnt').textContent = 0; $('sumBtn').classList.remove('show'); $('missionBtn').classList.remove('show');
   document.querySelectorAll('.place').forEach(p => p.classList.remove('done'));
   document.querySelectorAll('.dots i').forEach(d => d.style.background = '#fff');
-  closeFin(); closeMission(); endTour(); $('intro').classList.remove('hide');
+  closeFin(); closeMission(); endTour(); stopVoice(); $('intro').classList.remove('hide');
 };
 updateMapMayor();
 
