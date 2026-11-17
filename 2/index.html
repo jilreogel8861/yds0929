@@ -295,9 +295,10 @@
   @keyframes twinkle{from{transform:scale(.8);opacity:.6}to{transform:scale(1.1);opacity:1}}
   .rise{animation:rise 1.4s ease-in-out infinite alternate}
   @keyframes rise{from{transform:translateY(0)}to{transform:translateY(-8px)}}
-  /* 마무리: 유니버설 디자인 설명 카드 */
+  /* 마무리: 유니버셜 디자인 설명 카드 */
   .ud{margin-top:clamp(12px,2vh,26px);background:#fff;border:3px solid var(--line);border-radius:28px;padding:clamp(16px,2.6vh,30px) clamp(18px,2vw,36px);
     text-align:center;box-shadow:0 6px 0 rgba(47,42,44,.18);animation:pop .4s ease both}
+  .fin-say .ud-red{color:#E0392B}
   .ud-title{display:inline-block;font-family:'Jua';font-size:clamp(34px,3.6vw,64px);line-height:1.2;background:linear-gradient(transparent 58%,var(--butter) 58%);padding:0 10px}
   .ud-sub{font-family:'Jua';font-size:clamp(20px,1.8vw,32px);color:var(--ink2);margin-top:10px;line-height:1.45;word-break:keep-all}
   .ud-faces{display:flex;justify-content:center;gap:clamp(8px,1vw,18px);margin-top:clamp(12px,2vh,22px)}
@@ -875,7 +876,7 @@ const glue = t => GLUE.reduce((s, [re, rep]) => s.replace(re, rep), t);
    시장님 목소리 (audio/번호.mp3) — 시장님이 말하는 대사가 나올 때 재생
    아직 녹음하지 않은 번호는 소리 없이 넘어가요
    ========================================================= */
-const VOICE = {"여러분,다시만나서반가워요!": "audio/01.mp3", "지난번에함께찾은숨은불편,기억나나요?": "audio/02.mp3", "그동안불편했던곳들을하나씩바꾸었답니다!": "audio/03.mp3", "화면이높고글씨가작던키오스크카페,": "audio/04.mp3", "아기와함께쓰기어렵던공중화장실,": "audio/05.mp3", "비오는날짐을싣기힘들던주차장,": "audio/06.mp3", "한국어설명만있던미술관,": "audio/07.mp3", "목발로는오르기힘들던시내버스까지!": "audio/08.mp3", "무엇이달라졌는지함께보러갈까요?": "audio/09.mp3", "장소를눌러서달라진모습을확인해보세요!": "audio/10.mp3", "주민의얼굴이환해졌어요!다른곳도가볼까요?": "audio/11.mp3", "조금바꾸었을뿐인데이렇게편해지다니요!": "audio/12.mp3", "다른곳은또어떻게달라졌을까요?": "audio/13.mp3", "이제한곳남았어요.마지막장소도살펴볼까요?": "audio/14.mp3", "모두가웃는영동시가되었어요!‘정리하기’를눌러보세요.": "audio/15.mp3", "여기는키오스크카페예요.지난번에할머니께서이곳에서주문을못하셨지요?": "audio/16.mp3", "그래서화면을낮추고,글씨도크게바꾸었어요!": "audio/17.mp3", "이제할머니께서도혼자주문하실수있어요!": "audio/18.mp3", "여기는공중화장실이에요.지난번에아기를안고는화장실을쓸수가없었지요?": "audio/19.mp3", "그래서화장실칸마다아기의자를달았어요!": "audio/20.mp3", "이제아기와함께와도편하게쓸수있어요!": "audio/21.mp3", "여기는주차장이에요.지난번에비오는날짐을들고트렁크를열지못했지요?": "audio/22.mp3", "그래서비를맞지않는지하주차장을만들었어요!": "audio/23.mp3", "이제비오는날에도짐싣기가걱정없어요!": "audio/24.mp3", "여기는미술관이에요.지난번에외국인관광객이한국어설명을읽지못했지요?": "audio/25.mp3", "그래서여러나라말로된설명을붙였어요!": "audio/26.mp3", "이제어느나라사람이든그림을즐길수있어요!": "audio/27.mp3", "여기는버스정류장이에요.지난번에목발을짚은사람이버스에오르지못했지요?": "audio/28.mp3", "그래서계단없는낮은버스로바꾸고,경사판도달았어요!": "audio/29.mp3", "이제다리가불편해도누구나버스를탈수있어요!": "audio/30.mp3", "다섯명모두활짝웃게되었어요!": "audio/31.mp3", "불편을찾아조금씩바꾸었더니모두가편하게쓸수있게되었어요.": "audio/32.mp3", "제가영동시를바꾸면서알게된것이있어요.": "audio/33.mp3", "지난시간에여러분도학교의숨은불편을찾아주었지요?": "audio/34.mp3", "여러분은학교에서어떤불편을찾았나요?": "audio/35.mp3", "이번에는여러분이바꿀차례예요!": "audio/36.mp3", "오늘은어떻게고치면좋을지그림으로그려봅시다!": "audio/37.mp3", "이것이오늘의미션이에요!": "audio/38.mp3", "미션은이렇게해요.": "audio/39.mp3", "멋진그림기대할게요.여러분을믿어요!": "audio/40.mp3", "이렇게누구나편하게쓸수있도록만드는것을유니버설디자인이라고불러요.": "audio/41.mp3"};
+const VOICE = {"여러분,다시만나서반가워요!": "audio/01.mp3", "지난번에함께찾은숨은불편,기억나나요?": "audio/02.mp3", "그동안불편했던곳들을하나씩바꾸었답니다!": "audio/03.mp3", "화면이높고글씨가작던키오스크카페,": "audio/04.mp3", "아기와함께쓰기어렵던공중화장실,": "audio/05.mp3", "비오는날짐을싣기힘들던주차장,": "audio/06.mp3", "한국어설명만있던미술관,": "audio/07.mp3", "목발로는오르기힘들던시내버스까지!": "audio/08.mp3", "무엇이달라졌는지함께보러갈까요?": "audio/09.mp3", "장소를눌러서달라진모습을확인해보세요!": "audio/10.mp3", "주민의얼굴이환해졌어요!다른곳도가볼까요?": "audio/11.mp3", "조금바꾸었을뿐인데이렇게편해지다니요!": "audio/12.mp3", "다른곳은또어떻게달라졌을까요?": "audio/13.mp3", "이제한곳남았어요.마지막장소도살펴볼까요?": "audio/14.mp3", "모두가웃는영동시가되었어요!‘정리하기’를눌러보세요.": "audio/15.mp3", "여기는키오스크카페예요.지난번에할머니께서이곳에서주문을못하셨지요?": "audio/16.mp3", "그래서화면을낮추고,글씨도크게바꾸었어요!": "audio/17.mp3", "이제할머니께서도혼자주문하실수있어요!": "audio/18.mp3", "여기는공중화장실이에요.지난번에아기를안고는화장실을쓸수가없었지요?": "audio/19.mp3", "그래서화장실칸마다아기의자를달았어요!": "audio/20.mp3", "이제아기와함께와도편하게쓸수있어요!": "audio/21.mp3", "여기는주차장이에요.지난번에비오는날짐을들고트렁크를열지못했지요?": "audio/22.mp3", "그래서비를맞지않는지하주차장을만들었어요!": "audio/23.mp3", "이제비오는날에도짐싣기가걱정없어요!": "audio/24.mp3", "여기는미술관이에요.지난번에외국인관광객이한국어설명을읽지못했지요?": "audio/25.mp3", "그래서여러나라말로된설명을붙였어요!": "audio/26.mp3", "이제어느나라사람이든그림을즐길수있어요!": "audio/27.mp3", "여기는버스정류장이에요.지난번에목발을짚은사람이버스에오르지못했지요?": "audio/28.mp3", "그래서계단없는낮은버스로바꾸고,경사판도달았어요!": "audio/29.mp3", "이제다리가불편해도누구나버스를탈수있어요!": "audio/30.mp3", "다섯명모두활짝웃게되었어요!": "audio/31.mp3", "불편을찾아조금씩바꾸었더니모두가편하게쓸수있게되었어요.": "audio/32.mp3", "제가영동시를바꾸면서알게된것이있어요.": "audio/33.mp3", "지난시간에여러분도학교의숨은불편을찾아주었지요?": "audio/34.mp3", "여러분은학교에서어떤불편을찾았나요?": "audio/35.mp3", "이번에는여러분이바꿀차례예요!": "audio/36.mp3", "오늘은어떻게고치면좋을지그림으로그려봅시다!": "audio/37.mp3", "이것이오늘의미션이에요!": "audio/38.mp3", "미션은이렇게해요.": "audio/39.mp3", "멋진그림기대할게요.여러분을믿어요!": "audio/40.mp3", "이렇게누구나편하게쓸수있도록만드는것을유니버셜디자인이라고불러요.": "audio/41.mp3"};
 const vnorm = t => t.replace(/[\s\u00a0]+/g, '');
 let voiceOn = true, vAudio = null;
 try { voiceOn = localStorage.getItem('yd2-voice') !== 'off'; } catch (e) {}
@@ -1012,14 +1013,14 @@ const say = t => `<div><span class="who mayor">시장</span></div><div class="fi
 const crew = () => `<div class="fcrew">${['grandma','crutch','mom','umbrella','tourist'].map(n => `<img src="${IMG_HAPPY[n]}" alt="">`).join('')}</div>`;
 const foundGrid = () => `<div class="found">${ORDER.map(id => { const s = SCENES[id];
   return `<div class="fcard"><img src="${IMG_HAPPY[s.img]}" alt=""><b style="background:${s.color}">${s.title}</b><span>${s.found}</span></div>`; }).join('')}</div>`;
-// 유니버설 디자인: 모두가 편하게 쓸 수 있는 디자인
-const udCard = () => `<div class="ud"><div class="ud-title">유니버설 디자인</div>
+// 유니버셜 디자인: 모두가 편하게 쓸 수 있는 디자인
+const udCard = () => `<div class="ud"><div class="ud-title">유니버셜 디자인</div>
   <div class="ud-sub">나이, 몸, 쓰는 말이 달라도<br>모두가 편하게 쓸 수 있는 디자인</div>
   <div class="ud-faces">${['h_grandma','h_crutch','h_mom','h_umbrella','h_tourist'].map((k,i) => `<img src="${PORT[k]}" alt="" style="background:${['#FFD3DA','#CDEFE2','#D3E7FB','#FFE0CC','#E6DDF8'][i]}">`).join('')}</div></div>`;
 const FIN = [
   {m:'proud',   html:() => say('다섯 명 모두 활짝 웃게 되었어요!') + crew()},
   {m:'explain', html:() => say('불편을 찾아 조금씩 바꾸었더니 모두가 편하게 쓸 수 있게 되었어요.') + foundGrid()},
-  {m:'explain', html:() => say('이렇게 누구나 편하게 쓸 수 있도록 만드는 것을 유니버설 디자인이라고 불러요.') + udCard()},
+  {m:'explain', html:() => say('이렇게 누구나 편하게 쓸 수 있도록 만드는 것을 <span class="ud-red">유니버셜 디자인</span>이라고 불러요.') + udCard()},
   {m:'proud',   html:() => say('제가 영동시를 바꾸면서 알게 된 것이 있어요.') + '<div class="key">숨은 불편을 찾아 바꾸면 모두가 함께 웃을 수 있어요.</div>'},
   {m:'think',   html:() => say('지난 시간에 여러분도 학교의 숨은 불편을 찾아 주었지요?') + '<div class="qbox">여러분이 찾은 불편은 무엇인가요?</div>'},
 ];
